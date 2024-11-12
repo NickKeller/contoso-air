@@ -45,6 +45,7 @@ env:
   CLUSTER_NAME: myAKSCluster
   DEPLOYMENT_MANIFEST_PATH: |
     src/web/manifests/deployment.yaml
+    src/web/manifests/pdb.yaml
     src/web/manifests/service.yaml
   DOCKER_FILE: src/web/Dockerfile
   BUILD_CONTEXT_PATH: ./src/web
