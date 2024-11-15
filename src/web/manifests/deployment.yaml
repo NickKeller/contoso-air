@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: contoso-air
-          image: testdemocontoso.azurecr.io/image-workflow-1731396350371:latest
+          image: nikelleacr.azurecr.io/contoso-air:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
