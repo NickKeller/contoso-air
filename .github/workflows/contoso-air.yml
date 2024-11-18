@@ -42,13 +42,13 @@ env:
   AZURE_CONTAINER_REGISTRY: nikelleacr
   CONTAINER_NAME: contoso-air
   CLUSTER_RESOURCE_GROUP: nikelle-devbox
-  CLUSTER_NAME: qidemo
+  CLUSTER_NAME: test
   DEPLOYMENT_MANIFEST_PATH: |
+    ./src/web/manifests/acrpullbinding.yaml
     ./src/web/manifests/deployment.yaml
     ./src/web/manifests/service.yaml
-    ./src/web/manifests/acrpullbinding.yaml
   DOCKER_FILE: ./src/web/Dockerfile
-  BUILD_CONTEXT_PATH: ./src/web/
+  BUILD_CONTEXT_PATH: ./src/web
   NAMESPACE: default
 
 jobs:
