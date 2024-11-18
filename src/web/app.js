@@ -62,7 +62,7 @@ router.get('/demo', (req, res, next) => {
     res.write("Hello World!").end();
 });
 router.get('/healthz', function(req, res, next) {
-    res.writeHead(200)
+    res.writeHead(200).end();
 });
 app.use("/", router);
 
