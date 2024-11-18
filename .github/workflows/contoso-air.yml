@@ -47,6 +47,7 @@ env:
     ./src/web/manifests/deployment.yaml
     ./src/web/manifests/service.yaml
     ./src/web/manifests/acrpullbinding.yaml
+    ./src/web/manifests/acrpullbindingcrd.yaml
   DOCKER_FILE: ./src/web/Dockerfile
   BUILD_CONTEXT_PATH: ./src/web/
   NAMESPACE: default
