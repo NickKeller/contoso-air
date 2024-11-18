@@ -19,6 +19,8 @@ spec:
       containers:
         - name: contoso-air
           image: nikelleacr.azurecr.io/contoso-air:latest
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
+      imagePullSecrets:
+        - name: acrbinding

@@ -1,0 +1,7 @@
+apiVersion: msi-acrpull.microsoft.com/v1beta1
+kind: AcrPullBinding
+metadata:
+  name: acrbinding
+spec:
+  acrServer: nikelleacr.azurecr.io
+  managedIdentityResourceID: /subscriptions/26fe00f8-9173-4872-9134-bb1d2e00343a/resourceGroups/nikelle-devbox/providers/Microsoft.ManagedIdentity/userAssignedIdentities/contoso-air-identity

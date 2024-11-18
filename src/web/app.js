@@ -17,9 +17,9 @@ var app = express();
 
 // Configure i18n
 i18n.configure({
-  objectNotation: true,
-  locales: ["en", "es"],
-  directory: path.join(__dirname, "locales"),
+    objectNotation: true,
+    locales: ["en", "es"],
+    directory: path.join(__dirname, "locales"),
 });
 
 // Register i18n as a middleware
@@ -27,15 +27,15 @@ app.use(i18n.init);
 
 // Register the i18n helper with Handlebars
 var hbs = exphbs.create({
-  extname: ".hbs",
-  defaultLayout: "main",
-  layoutsDir: path.join(__dirname, "views/layouts"),
-  partialsDir: path.join(__dirname, "views/partials"),
-  helpers: {
-    i18n: function (str) {
-      return new Handlebars.SafeString(i18n.__(str));
+    extname: ".hbs",
+    defaultLayout: "main",
+    layoutsDir: path.join(__dirname, "views/layouts"),
+    partialsDir: path.join(__dirname, "views/partials"),
+    helpers: {
+        i18n: function(str) {
+            return new Handlebars.SafeString(i18n.__(str));
+        },
     },
-  },
 });
 
 // view engine setup
@@ -56,22 +56,27 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", require("./routes"));
+router = require("./routes");
+
+router.get('/demo', (req, res, next) => {
+    res.write("Hello World!").end();
+})
+app.use("/", router);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+app.use(function(req, res, next) {
+    next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+    // render the error page
+    res.status(err.status || 500);
+    res.render("error");
 });
 
 module.exports = app;
