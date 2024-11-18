@@ -42,7 +42,7 @@ env:
   AZURE_CONTAINER_REGISTRY: nikelleacr
   CONTAINER_NAME: contoso-air
   CLUSTER_RESOURCE_GROUP: nikelle-devbox
-  CLUSTER_NAME: test
+  CLUSTER_NAME: qidemo
   DEPLOYMENT_MANIFEST_PATH: |
     ./src/web/manifests/acrpullbinding.yaml
     ./src/web/manifests/deployment.yaml
