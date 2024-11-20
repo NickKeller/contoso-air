@@ -16,8 +16,4 @@ router.get('/', function(req, res, next) {
     res.render('home', vm);
 });
 
-router.get('/demo', (req, res, next) => {
-    res.write("Hello World!").end();
-})
-
 module.exports = router;

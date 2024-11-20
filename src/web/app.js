@@ -58,12 +58,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 router = require("./routes");
 
-router.get('/demo', (req, res, next) => {
-    res.write("Hello World!").end();
-});
-router.get('/healthz', function(req, res, next) {
-    res.writeHead(200).end();
-});
 app.use("/", router);
 
 // catch 404 and forward to error handler
@@ -83,4 +77,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-exit(1);
