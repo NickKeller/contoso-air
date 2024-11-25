@@ -7,7 +7,7 @@ metadata:
     kubernetes.azure.com/generator: devhub
   namespace: default
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: contoso-air
@@ -28,14 +28,10 @@ spec:
               topologyKey: kubernetes.io/node
       containers:
         - name: contoso-air
-          image: nikelleacr.azurecr.io/contoso-air:latest
+          image: nikelleacr.azurecr.io/contoso-air:1.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
-          resources:
-            limits:
-              cpu: 1
-              memory: 1Gi
           lifecycle:
             preStop:
               httpGet:
