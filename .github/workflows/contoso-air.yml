@@ -44,7 +44,6 @@ env:
   CLUSTER_RESOURCE_GROUP: nikelleebld108971092
   CLUSTER_NAME: qidemo
   DEPLOYMENT_MANIFEST_PATH: |
-    ./src/web/manifests/acrpullbinding.yaml
     ./src/web/manifests/deployment.yaml
     ./src/web/manifests/service.yaml
   DOCKER_FILE: ./src/web/Dockerfile
