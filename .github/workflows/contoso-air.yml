@@ -38,10 +38,10 @@ on:
   workflow_dispatch:
 
 env:
-  ACR_RESOURCE_GROUP: nikelle-devbox
+  ACR_RESOURCE_GROUP: nikelleebld108971092
   AZURE_CONTAINER_REGISTRY: nikelleacr
   CONTAINER_NAME: contoso-air
-  CLUSTER_RESOURCE_GROUP: nikelle-devbox
+  CLUSTER_RESOURCE_GROUP: nikelleebld108971092
   CLUSTER_NAME: qidemo
   DEPLOYMENT_MANIFEST_PATH: |
     ./src/web/manifests/acrpullbinding.yaml
