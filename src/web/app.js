@@ -12,6 +12,7 @@ var flash = require("express-flash");
 var favicon = require("serve-favicon");
 var passport = require("./config/passport.config");
 var i18n = require("i18n");
+const { exit } = require("process");
 
 var app = express();
 

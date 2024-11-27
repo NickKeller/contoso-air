@@ -4,7 +4,6 @@ metadata:
   name: contoso-air
   labels:
     app: contoso-air
-    kubernetes.azure.com/generator: devhub
   namespace: default
 spec:
   replicas: 4
@@ -28,8 +27,8 @@ spec:
               topologyKey: kubernetes.io/node
       containers:
         - name: contoso-air
-          image: nikelleacr.azurecr.io/contoso-air:1.0.0
-          imagePullPolicy: IfNotPresent
+          image: nikelleacr.azurecr.io/contoso-air:2.0.0
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           lifecycle:
