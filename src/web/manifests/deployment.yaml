@@ -4,9 +4,9 @@ metadata:
   name: contoso-air
   labels:
     app: contoso-air
-  namespace: default
+    kubernetes.azure.com/blah: test
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: contoso-air
@@ -15,38 +15,11 @@ spec:
       labels:
         app: contoso-air
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                - key: app
-                  operator: In
-                  values:
-                  - contoso-air
-              topologyKey: kubernetes.io/node
       containers:
         - name: contoso-air
           image: nikelleacr.azurecr.io/contoso-air:2.0.0
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
-          lifecycle:
-            preStop:
-              httpGet:
-                path: /healthz
-                port: 3000
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
       imagePullSecrets:
         - name: acrbinding

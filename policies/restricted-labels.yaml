@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-aks-labels
+  annotations:
+    policies.kyverno.io/title: Restrict AKS label usage to AKS components only
+spec:
+  background: false
+  emitWarning: true
+  rules:
+    - name: check-label
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      preconditions:
+        all:
+          - key: "{{request.operation || 'BACKGROUND'}}"
+            operator: NotEquals
+            value: DELETE
+      context:
+      validate:
+        failureAction: Audit
+        message: "Label 'kubernetes.azure.com' is restricted to AKS components only"
+        pattern:
+          metadata:
+            labels:
+              kubernetes.azure.com*: "?*"

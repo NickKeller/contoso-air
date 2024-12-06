@@ -1,0 +1,30 @@
+apiVersion: kyverno.io/v1
+# The `ClusterPolicy` kind applies to the entire cluster.
+kind: ClusterPolicy
+metadata:
+  name: require-ns-purpose-label
+# The `spec` defines properties of the policy.
+spec:
+  emitWarning: true
+  # The `rules` is one or more rules which must be true.
+  rules:
+  - name: print-generations
+    match:
+      any:
+      - resources:
+          annotations:
+            generations.safeguards/pdb-name: "?*"
+          kinds:
+          - Deployment
+          operations:
+          - CREATE
+          - UPDATE
+    # The `validate` statement tries to positively check what is defined. If the statement, when compared with the requested resource, is true, it is allowed. If false, it is blocked.
+    validate:
+      # The `failureAction` tells Kyverno if the resource being validated should be allowed but reported (`Audit`) or blocked (`Enforce`).
+      failureAction: Audit
+      # The `message` is what gets displayed to a user if this rule fails validation.
+      message: "We have automatically generated a PodDisruptionBudget {{request.object.metadata.name}}-default-pdb for your deployment {{request.object.metadata.name}}"
+      # The `pattern` object defines what pattern will be checked in the resource. In this case, it is looking for `metadata.labels` with `purpose=production`.
+      deny: {}
+
