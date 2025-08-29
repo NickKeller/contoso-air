@@ -4,16 +4,17 @@ metadata:
   name: contoso-air
   labels:
     app: contoso-air
-  namespace: default
 spec:
   replicas: 4
   selector:
     matchLabels:
       app: contoso-air
+      test-label: test
   template:
     metadata:
       labels:
         app: contoso-air
+        test-label: test
     spec:
       affinity:
         podAntiAffinity:
@@ -31,22 +32,3 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
-          lifecycle:
-            preStop:
-              httpGet:
-                path: /healthz
-                port: 3000
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-      imagePullSecrets:
-        - name: acrbinding
