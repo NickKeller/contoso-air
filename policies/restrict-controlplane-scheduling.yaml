@@ -1,0 +1,26 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-taints-on-non-system-pool-nodes
+  annotations:
+    policies.kyverno.io/title: Restricts adding system pool taints to non system pool nodes
+spec:
+  emitWarning: true
+  background: true
+  rules:
+  - name: restrict-controlplane-scheduling-master
+    match:
+      any:
+      - resources:
+          kinds:
+          - Node
+          selector:
+            matchLabels:
+              kubernetes.azure.com/mode: user
+    validate:
+      failureAction: Audit
+      message: User mode Nodepools cannot specify system pool taints 
+      pattern:
+        spec:
+          =(taints):
+            - key: "!CriticalAddonsOnly*"

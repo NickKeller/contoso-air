@@ -1,0 +1,44 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: restrict-intree-storageclass
+  annotations:
+    policies.kyverno.io/title: Disallow in-tree StorageClass
+    policies.kyverno.io/category: Other, Multi-Tenancy
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: PersistentVolumeClaim, StatefulSet
+    policies.kyverno.io/description: >-
+      PersistentVolumeClaims (PVCs) and StatefulSets may optionally define a StorageClass
+      to dynamically provision storage. In a multi-tenancy environment where StorageClasses are
+      far more common, it is often better to require storage only be provisioned from these
+      StorageClasses. This policy requires that PVCs and StatefulSets containing
+      volumeClaimTemplates define the storageClassName field with some value.
+spec:
+  background: true
+  emitWarning: true
+  rules:
+  - name: pvc-storageclass
+    preconditions:
+      any:
+      - key: "{{request.operation || 'BACKGROUND'}}"
+        operator: AnyIn
+        value:
+        - CREATE
+        - UPDATE
+    match:
+      any:
+      - resources:
+          kinds:
+          - StorageClass
+    validate:
+      failureAction: Audit
+      message: "In-tree StorageClass of {{request.object.provisioner}} is not allowed"
+      deny:
+        conditions:
+          any:
+          - key: "{{request.object.provisioner}}"
+            operator: Equals
+            value: "kubernetes.io/azure-file"
+          - key: "{{request.object.provisioner}}"
+            operator: Equals
+            value: "kubernetes.io/azure-disk"
